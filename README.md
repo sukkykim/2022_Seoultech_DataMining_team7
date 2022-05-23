@@ -80,7 +80,9 @@ validation dataset에 대한 값으로 획득.
 후처리를 진행 후 다시 학습을 진행
 _____________
 #### 3) vif, p-value, PCA를 통한 다중공산성 측정 및 feature extraction  
+_____________
 3-1) 다중공산성 측정 알고리즘인 VIF를 통해 도출한 계수가 10이상인 경우,
+_____________
 해당 feature들에 대해서 extraction을 진행해볼 가치가 있다.  
 ![이미지4](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC5.png)
 앞서 전처리한 데이터셋에 대해 VIF를 적용한 결과,
@@ -90,7 +92,9 @@ _____________
 
 그 결과, 성능이 감소 (오차값 증가 및 R2 계수 감소) 하여, VIF를 적용해 변수를 제거하는 과정을 배제.
 ![이미지6](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC7.png)
+_____________
 3-2) 다른 다중공산성 측정 알고리즘인 p-value를 통한 dimension reduction 시도
+_____________
 - 비슷한 방식으로, P 값이 0.05 를 넘어가면 변수 제거를 고려해볼만 하다.
 ![이미지7](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC8.png)
 
@@ -98,7 +102,9 @@ _____________
 
 다시 한 번 성능이 감소 (오차값 증가 및 R2 계수 감소) 하여, p-value를 적용해 변수를 제거하는 과정을 배제.  
 ![이미지8](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC9.png)
+_____________
 3-3) PCA를 통해 feature extraction 적용 후 학습 진행. (n_components = 0.95 로 설정) 
+_____________
 ![이미지9](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC10.png)
 다시 한 번 성능이 감소 (오차값 증가 및 R2 계수 감소) 하여, PCA를 적용해 변수를 제거하는 과정 또한 배제.  
 ______________
