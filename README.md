@@ -89,6 +89,8 @@ _____________
 _____________
 해당 feature들에 대해서 extraction을 진행해볼 가치가 있다.  
 ![이미지4](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC5.png)
+
+
 앞서 전처리한 데이터셋에 대해 VIF를 적용한 결과,
 그 계수가 10을 넘기는 변수들을 제거 및 linear regression 적용 후,
 앞서 사용한 비교분석 지표인 RMSE, R_squared 값의 변화를 관찰.  
@@ -112,16 +114,23 @@ _____________
 _____________
 3-3) PCA를 통해 feature extraction 적용 후 학습 진행. (n_components = 0.95 로 설정) 
 _____________
+
 ![이미지9](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC10.png)
 다시 한 번 성능이 감소 (오차값 증가 및 R2 계수 감소) 하여, PCA를 적용해 변수를 제거하는 과정 또한 배제.  
 ______________
+
+
 ### 4) Training dataset에 대한 모델 평가  
 앞서 3가지의 dimension reduction 방법론을 통해 성능을 증가시키지 못하여,
 Correlation 계수를 구한 후 전처리 과정을 거친 초반의 데이터셋을 평가에 사용.  
 ![이미지10](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC11.png)
 ______________
+
+
 ### 후처리
 ### Clustering 및 군집별 학습/예측
+
+
 - K-means를 활용한 군집화 진행 후, 비슷한 특성을 가진 각 군집에 대해 linear regression을 별개로 진행하여
 발전된 결과 도출을 도모.
 - 17년도 1분기 데이터에 대한 클러스터링 진행, 타 시기의 데이터셋에 대해
@@ -141,13 +150,19 @@ ______________
 
 __________________
 - DBSCAN을 사용해 실루엣스코어 측정
+
+
 - 그 값이 두 번째로 높으며 가장 적절히 나뉜 군집화 결과 채택
   * 첫 번째로 값이 높은 군집화의 경우, 1089 개 데이터를 (1088 / 1) 로 군집화한 경우이기에, 무의미한 군집화로 판단
+
+
 ![이미지11](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC12.png)
 
 
 - Agglomerative Clustering 
 (n_clusters=2,linkage="ward")
+
+
 - 같은 상권코드를 가지는 데이터에 같은 label을 부여,
 각 군집별로 (2개의 클러스터, label = 0 / label = 1) 
 dimension reduction 및 평가 등 이후 과정 진행  
@@ -155,32 +170,50 @@ dimension reduction 및 평가 등 이후 과정 진행
 
 - Label == 0 인 dataset (클러스터) 에 대해 학습 및 평가를 진행해본 결과, ([코드](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/codes/linear%20regression%20with%20cluster0.ipynb))
 MAE는 다소 증가하였으나 RMSE 감소 및 R2 증가 결과를 도출하였다.
+
+
 ![이미지12](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC13.png)
 
 
 - 앞서 사용하였던 dimension reduction 방법론을 적용한 결과, 평가 결과에 있어 다시 한 번 더 나은 결과를 도출하지 못했다.
+
+
 - Dimension reduction을 적용하지 않은 label == 0 의 데이터셋에 대한 최종 예측 결과, 
+
+
 ![이미지14](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC15.png)
 
 
 - 오차값이 소폭 증가하였으나 R2가 상당히 큰 폭으로 증가한 결과물을 도출할 수 있었다.  
+
+
 - Label == 1 인 데이터셋에 대해 같은 과정을 반복한 결과, ([코드](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/codes/linear%20regression%20with%20cluster1.ipynb))
-
-
 (p-value 이용 변수 제거 후 VIF 이용 변수 제거) 실험이 평가 성능을 증가시켜 이를 적용한 데이터셋에 대해 최종 예측을 진행.
+
+
 ![이미지15](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC16.png)
 
 
 - 그 결과, 오차값이 다소 감소하였으나 R2가 상당히 큰 폭으로 감소하는 결과를 도출하였다.
+
+
 ___________________
 ### 기대 효과와 의의 및 한계점, 추후 개선 방안
 ________________
+
+
 ### 기대 효과
 - 기존에 존재하는 위험도 예측 서비스를 넘어, 전반적인 예상 매출액을 알려줄 수 있는 서비스 제공  
+
+
 ### 의의 및 한계점 1
 - Label로 0을 가진 특성의 데이터들에 대해서, 예측을 준수하게 해낼 수 있는 모델 구축에 성공
 - Lable로 1을 가진 특성의 데이터들에 대해서, 동일 모델이 예측을 잘 해내지 못함
+
+
 ### 한계점 2 및 추후 개선 방안
+
+
 - 사용한 데이터셋의 feature의 개수가 많아, 각 클러스터에 대한
 특징 파악에 실패했다.
   * 시각화를 통해 직관적으로 이를 파악해본 결과,
@@ -188,6 +221,10 @@ ________________
 강서구 등을 포함한 주거단지의 경우가 많았고
 붉은색의 점으로 표시된 cluster 1의 경우
 강남구 등을 포함한 상가/직장단지의 경우가 많았다.
+
+
 ![이미지15](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC18.png)
+
+
 - 추후 연구를 통해, 해당 클러스터들이 가지는 특성을
 더 자세히 파악할 수 있다면, 소비자 맞춤 예측 정보를 제공할 수 있으리라 생각된다.
