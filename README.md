@@ -42,7 +42,7 @@ _________________
 ### 상관성 분석 - correlation 계수 ([코드](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/codes/correlation%20computing.ipynb))
 + 15개의 데이터셋을 병합하기 전, 각 데이터셋에 대해 상관성 분석을 진행.
   * 한 데이터셋 내의 각 변수 간의 correlation 계수를 구하여 변수 선별을 일차적으로 진행.
-![이미지0](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC0.png){: width="100" height="200"}
+![이미지0](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC0.png)
 + 모든 데이터셋에 대해 correlation 값을 구해본 결과, 각 값들은 대부분
 절댓값이 0에 가깝거나, 0.8 이상으로 나오는 두 가지의 경우로 나뉘었다.
 + 이에 후자의 경우, 대표되는 변수만을 선별하여 regression에 사용하고자 하였다.
@@ -73,7 +73,7 @@ _________________
 - R_square
   * 결정계수 (원자료에 대한 회귀선의 설명력)
   * 값이 1에 가까울수록, 예측이 실제를 비슷하게 설명  
-![이미지3](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC4.jpg){: width="100" height="40"}
+![이미지3](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC4.jpg)
 - 그 결과, 약 0.47의 R_square 값을
 validation dataset에 대한 값으로 획득.
 - 성능을 높이기 위해, dimension을 줄이기 위한
@@ -84,35 +84,35 @@ _____________
 3-1) 다중공산성 측정 알고리즘인 VIF를 통해 도출한 계수가 10이상인 경우,
 _____________
 해당 feature들에 대해서 extraction을 진행해볼 가치가 있다.  
-![이미지4](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC5.png){: width="150" height="100"}
+![이미지4](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC5.png)
 앞서 전처리한 데이터셋에 대해 VIF를 적용한 결과,
 그 계수가 10을 넘기는 변수들을 제거 및 linear regression 적용 후,
 앞서 사용한 비교분석 지표인 RMSE, R_squared 값의 변화를 관찰.  
-![이미지5](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC6.png){: width="100" height="200"}
+![이미지5](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC6.png)
 
 그 결과, 성능이 감소 (오차값 증가 및 R2 계수 감소) 하여, VIF를 적용해 변수를 제거하는 과정을 배제.
-![이미지6](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC7.png){: width="200" height="40"}
+![이미지6](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC7.png)
   
 _____________
 3-2) 다른 다중공산성 측정 알고리즘인 p-value를 통한 dimension reduction 시도
 _____________
 - 비슷한 방식으로, P 값이 0.05 를 넘어가면 변수 제거를 고려해볼만 하다.
-![이미지7](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC8.png){: width="100" height="40"}
+![이미지7](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC8.png)
 
 
 
 다시 한 번 성능이 감소 (오차값 증가 및 R2 계수 감소) 하여, p-value를 적용해 변수를 제거하는 과정을 배제.  
-![이미지8](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC9.png){: width="200" height="40"}
+![이미지8](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC9.png)
 _____________
 3-3) PCA를 통해 feature extraction 적용 후 학습 진행. (n_components = 0.95 로 설정) 
 _____________
-![이미지9](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC10.png){: width="100" height="50"}
+![이미지9](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC10.png)
 다시 한 번 성능이 감소 (오차값 증가 및 R2 계수 감소) 하여, PCA를 적용해 변수를 제거하는 과정 또한 배제.  
 ______________
 ### 4) Training dataset에 대한 모델 평가  
 앞서 3가지의 dimension reduction 방법론을 통해 성능을 증가시키지 못하여,
 Correlation 계수를 구한 후 전처리 과정을 거친 초반의 데이터셋을 평가에 사용.  
-![이미지10](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC11.png){: width="100" height="50"}
+![이미지10](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC11.png)
 ______________
 ### 후처리
 ### Clustering 및 군집별 학습/예측
@@ -133,7 +133,7 @@ __________________
 - DBSCAN을 사용해 실루엣스코어 측정
 - 그 값이 두 번째로 높으며 가장 적절히 나뉜 군집화 결과 채택
   * 첫 번째로 값이 높은 군집화의 경우, 1089 개 데이터를 (1088 / 1) 로 군집화한 경우이기에, 무의미한 군집화로 판단
-![이미지11](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC12.png){: width="100" height="100"}
+![이미지11](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC12.png)
 - Agglomerative Clustering 
 (n_clusters=2,linkage="ward")
 - 같은 상권코드를 가지는 데이터에 같은 label을 부여,
@@ -141,14 +141,14 @@ __________________
 dimension reduction 및 평가 등 이후 과정 진행  
 - Label == 0 인 dataset (클러스터) 에 대해 학습 및 평가를 진행해본 결과, ([코드](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/codes/linear%20regression%20with%20cluster0.ipynb))
 MAE는 다소 증가하였으나 RMSE 감소 및 R2 증가 결과를 도출하였다.
-![이미지12](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC13.png){: width="100" height="40"}
+![이미지12](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC13.png)
 - 앞서 사용하였던 dimension reduction 방법론을 적용한 결과, 평가 결과에 있어 다시 한 번 더 나은 결과를 도출하지 못했다.
 - Dimension reduction을 적용하지 않은 label == 0 의 데이터셋에 대한 최종 예측 결과, 
-![이미지14](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC15.png){: width="100" height="40"}
+![이미지14](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC15.png)
 - 오차값이 소폭 증가하였으나 R2가 상당히 큰 폭으로 증가한 결과물을 도출할 수 있었다.  
 - Label == 1 인 데이터셋에 대해 같은 과정을 반복한 결과, ([코드](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/codes/linear%20regression%20with%20cluster1.ipynb))
 (p-value 이용 변수 제거 후 VIF 이용 변수 제거) 실험이 평가 성능을 증가시켜 이를 적용한 데이터셋에 대해 최종 예측을 진행.
-![이미지15](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC16.png){: width="100" height="40"}
+![이미지15](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC16.png)
 - 그 결과, 오차값이 다소 감소하였으나 R2가 상당히 큰 폭으로 감소하는 결과를 도출하였다.
 ___________________
 ### 기대 효과와 의의 및 한계점, 추후 개선 방안
@@ -166,6 +166,6 @@ ________________
 강서구 등을 포함한 주거단지의 경우가 많았고
 붉은색의 점으로 표시된 cluster 1의 경우
 강남구 등을 포함한 상가/직장단지의 경우가 많았다.
-![이미지15](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC18.png){: width="100" height="100"}
+![이미지15](https://github.com/sukkykim/2022_Seoultech_DataMining_team7/blob/main/img/%EA%B7%B8%EB%A6%BC18.png)
 - 추후 연구를 통해, 해당 클러스터들이 가지는 특성을
 더 자세히 파악할 수 있다면, 소비자 맞춤 예측 정보를 제공할 수 있으리라 생각된다.
